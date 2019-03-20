@@ -1,13 +1,6 @@
 //Switch flag for Production DB / Testing DB
 var prodEnvFlag = true;
 
-//  Moto Clique Node application
-//Environment Variable
-const databaseUser = process.env.MONGODB_ENDUSER.trim();
-const databasePassword = process.env.MONGODB_ENDUSER_PASSWORD.trim();
-const databaseName = process.env.MONGODB_NAME.trim();
-
-
 //importing modules
 
 var express = require('express'),
@@ -88,13 +81,13 @@ app.use('/api',route);
 var googleMailAPI = require('./gmail');
 
 // MongoDB Connection
-  var prdDBUrl = "mongodb:///opt/bitnami/mongodb/tmp/mongodb-27017.sock/"+databaseName; //"mongodb://motoadmin:Moto1234@ds217002.mlab.com:17002/motodb";
+  var prdDBUrl = "mongodb://motoadmin:Moto1234@ds217002.mlab.com:17002/motodb";
   var testDBUrl = "mongodb://meanadmin:Moto1234@ds235302.mlab.com:35302/meandb";
   var mongoURL = (prodEnvFlag)?prdDBUrl:testDBUrl;
   
   var mongodb = require('mongodb');
   
-  mongoose.connect(mongoURL,{user:databaseUser, pass:databasePassword}).then(
+  mongoose.connect(mongoURL).then(
   (res) => { console.log(res); googleMailAPI.init(); },
   (err) => { console.log(err); }
 );
