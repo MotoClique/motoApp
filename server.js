@@ -1,6 +1,10 @@
 //Switch flag for Production DB / Testing DB
 var prodEnvFlag = true;
 
+//
+var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
+    ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
+
 //importing modules
 
 var express = require('express'),
@@ -114,7 +118,9 @@ app.use(function(err, req, res, next){
   res.status(500).send('Something bad happened!');
 });
 
-app.listen(3000, () => console.log('your app is listening on port 3000!'))
-
+//app.listen(3000, () => console.log('your app is listening on port 3000!'))
+app.listen(port, ip);
+console.log('Server running on http://%s:%s', ip, port);
+console.log('server started:'+port);
 
 module.exports = app ;
