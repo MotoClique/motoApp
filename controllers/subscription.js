@@ -6,7 +6,6 @@ const PaymentTxn = mongoose.model('PaymentTxn');
 var ctrlGlobalVar = require('../globalVar');
 
 module.exports.success_html = function(){
-	
 var html = '<html>'+
 '<head></head> '+
 '<body style=""> '+
@@ -26,7 +25,7 @@ var html = '<html>'+
 '</script>'+
 '</body> '+
 '</html>';
-	return success_html;
+	return html;
 };
 
 //////////////////////////User Subscription Mapping Table////////////////////////////////
