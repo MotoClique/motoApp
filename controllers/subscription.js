@@ -3,6 +3,7 @@ const async = require("async");
 const request = require('request');
 var mongoose = require('mongoose');
 const PaymentTxn = mongoose.model('PaymentTxn');
+var ctrlGlobalVar = require('../globalVar');
 var success_html = '<html>'+
 '<head></head> '+
 '<body style=""> '+
@@ -17,7 +18,7 @@ var success_html = '<html>'+
 	'if(window.cordova) '+
 		'window.location.replace("file:///android_asset/www/index.html"); '+
 	'else '+
-		'window.location.replace("https://motoclique.in"); '+
+		'window.location.replace("'+ctrlGlobalVar.getGlobalVariable('hostname')+'"); '+
 '},6000); '+		
 '</script>'+
 '</body> '+
