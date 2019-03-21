@@ -92,7 +92,7 @@ var googleMailAPI = require('./gmail');
   var mongodb = require('mongodb');
   
   mongoose.connect(mongoURL).then(
-  (res) => { console.log(res); /*googleMailAPI.init();*/ },
+  (res) => { console.log(res); googleMailAPI.init(); },
   (err) => { console.log(err); }
 );
 
