@@ -9,11 +9,13 @@ var Counter = mongoose.model('Counter');
 var DeviceReg = mongoose.model('DeviceReg');
 var ctrlCommon = require('./common');
 var ctrlSchedule = require('../schedule');
+var ctrlGlobalVar = require('../globalVar');
 
 //////////////////////////Users Profile Master Table////////////////////////////////
 var Profile = mongoose.model('Profile');
 
 module.exports.profileRead = function(req,res){//Fetch
+	ctrlGlobalVar.setGlobalVariable('hostname',req.protocol + '://' + req.headers.host);//update hostname
 	// If no user ID exists in the JWT return a 401
 	if (!req.payload.user_id) {
 		res.status(401).json({
