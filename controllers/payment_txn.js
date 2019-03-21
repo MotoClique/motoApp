@@ -8,7 +8,8 @@ var Parameter = mongoose.model('Parameter');
 var ctrlGlobalVar = require('../globalVar');
 var prd_env = false;
 
-var success_html = '<html>'+
+module.exports.success_html = function(){
+var html = '<html>'+
 '<head></head> '+
 '<body style=""> '+
 '<div style="width:100%; height:100%; display:flex; flex-direction: column; justify-content:center; align-items:center;"> '+
@@ -27,8 +28,11 @@ var success_html = '<html>'+
 '</script>'+
 '</body> '+
 '</html>';
+	return html;
+};
 
-var pending_html = '<html>'+
+module.exports.pending_html = function(){
+var html = '<html>'+
 '<head></head> '+
 '<body style=""> '+
 '<div style="width:100%; height:100%; display:flex; flex-direction: column; justify-content:center; align-items:center;"> '+
@@ -47,8 +51,11 @@ var pending_html = '<html>'+
 '</script>'+
 '</body> '+
 '</html>';
+	return html;
+};
 
-var failed_html = '<html>'+
+module.exports.failed_html = function(){
+var html = '<html>'+
 '<head></head> '+
 '<body style=""> '+
 '<div style="width:100%; height:100%; display:flex; flex-direction: column; justify-content:center; align-items:center;"> '+
@@ -67,6 +74,8 @@ var failed_html = '<html>'+
 '</script>'+
 '</body> '+
 '</html>';
+	return html;
+};
 	
 //////////////////////////PAYMENT TRANSACTION Table////////////////////////////////
 const PaymentTxn = mongoose.model('PaymentTxn');
@@ -302,7 +311,7 @@ module.exports.buySubscriptionCallback = function(req,res){//Buy Subscription
 							}
 							else{
 								res.writeHead(200, {'Content-Type': 'text/html'});
-								res.write(failed_html);
+								res.write(module.exports.failed_html());
 								res.end();
 							}
 						});
@@ -314,7 +323,7 @@ module.exports.buySubscriptionCallback = function(req,res){//Buy Subscription
 			}
 			else{
 				res.writeHead(200, {'Content-Type': 'text/html'});
-				res.write(failed_html);
+				res.write(module.exports.failed_html());
 				res.end();
 			}
 		//}
@@ -383,12 +392,12 @@ module.exports.buySubscriptionTxnVerification = function(req,res){//Buy Subscrip
 							}
 							else if(_result.STATUS == 'PENDING'){
 								res.writeHead(200, {'Content-Type': 'text/html'});
-								res.write(pending_html);
+								res.write(module.exports.pending_html());
 								res.end();
 							}
 							else{
 								res.writeHead(200, {'Content-Type': 'text/html'});
-								res.write(failed_html);
+								res.write(module.exports.failed_html());
 								res.end();
 							}
 						});												
