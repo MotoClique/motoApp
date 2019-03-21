@@ -139,6 +139,7 @@ module.exports.deletePaymentTxn = function(req,res){//Delete
 };
 
 module.exports.buySubscription = function(req,res){//Buy Subscription
+if(ctrlGlobalVar.getGlobalVariable('hostname')){
 	Parameter.find({},function(params_err, params_result){
 		if(params_result && params_result.length>0){
 			var config_params = {};
@@ -252,6 +253,10 @@ module.exports.buySubscription = function(req,res){//Buy Subscription
 			res.json({statusCode:"F", msg:"Unable to fetch configuration parameter.", results: null, error: params_err});
 		}
 	});
+	}
+	else{
+		res.json({statusCode:"F", msg:"Unable to proceed currently. Try Again.", results: null, error: null});
+	}
 };
 
 module.exports.buySubscriptionCallback = function(req,res){//Buy Subscription
