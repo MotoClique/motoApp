@@ -5,7 +5,7 @@ const checksum_lib = require('../checksum/checksum.js');
 const https = require('https');
 var userSubMap = require('./subscription');
 var Parameter = mongoose.model('Parameter');
-var ctrlGlobalVar = require('./globalVar');
+var ctrlGlobalVar = require('../globalVar');
 var prd_env = false;
 
 var success_html = '<html>'+
@@ -22,7 +22,7 @@ var success_html = '<html>'+
 	'if(window.cordova) '+
 		'window.location.replace("file:///android_asset/www/index.html"); '+
 	'else '+
-		'window.location.replace("https://motoclique.in"); '+
+		'window.location.replace("'+ctrlGlobalVar.getGlobalVariable('hostname')+'"); '+
 '},6000); '+		
 '</script>'+
 '</body> '+
@@ -42,7 +42,7 @@ var pending_html = '<html>'+
 	'if(window.cordova) '+
 		'window.location.replace("file:///android_asset/www/index.html"); '+
 	'else '+
-		'window.location.replace("https://motoclique.in"); '+
+		'window.location.replace("'+ctrlGlobalVar.getGlobalVariable('hostname')+'"); '+
 '},6000); '+	
 '</script>'+
 '</body> '+
@@ -62,7 +62,7 @@ var failed_html = '<html>'+
 	'if(window.cordova) '+
 		'window.location.replace("file:///android_asset/www/index.html"); '+
 	'else '+
-		'window.location.replace("https://motoclique.in"); '+
+		'window.location.replace("'+ctrlGlobalVar.getGlobalVariable('hostname')+'"); '+
 '},6000); '+		
 '</script>'+
 '</body> '+
