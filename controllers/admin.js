@@ -2238,6 +2238,8 @@ module.exports.getAllParameter = function(req,res){//Fetch
 	Parameter.find({},function(err, result){
 			if(err)
 				res.json({statusCode: 'F', msg: 'Unable to fetch.', error: err});
+			else if(!result || result.length<=0)
+					res.json({statusCode: 'S', msg: 'Successfully fetched.', results: result});
 			else{
 				var loopCount = 0;
 				result.forEach(function(val,indx,arr){
