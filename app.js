@@ -96,7 +96,10 @@ var googleMailAPI = require('./gmail');
 var job_schedule = require('./schedule');
 job_schedule.scheduleBidClosedCheckJob();
 
+var ctrlGlobalVar = require('./globalVar');
+
 app.get('/', function (req, res) {
+	ctrlGlobalVar.setGlobalVariable('hostname',req.protocol + '://' + req.headers.host);
   res.render('index.html', { pageCountMessage : null});
 });
 
@@ -104,6 +107,7 @@ app.get('/', function (req, res) {
 
 
 app.get('*', function (req, res) {
+	ctrlGlobalVar.setGlobalVariable('hostname',req.protocol + '://' + req.headers.host);
 	  res.render('index.html', { pageCountMessage : null});
 });
 
