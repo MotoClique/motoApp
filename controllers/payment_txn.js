@@ -5,6 +5,7 @@ const checksum_lib = require('../checksum/checksum.js');
 const https = require('https');
 var userSubMap = require('./subscription');
 var Parameter = mongoose.model('Parameter');
+var ctrlGlobalVar = require('./globalVar');
 var prd_env = false;
 
 var success_html = '<html>'+
@@ -154,13 +155,17 @@ module.exports.buySubscription = function(req,res){//Buy Subscription
 				order_id += (currentDateTime.getMinutes() > 9)?(currentDateTime.getMinutes()):('0'+ currentDateTime.getMinutes());
 				order_id += (currentDateTime.getSeconds() > 9)?(currentDateTime.getSeconds()):('0'+ currentDateTime.getSeconds());
 				
+				var callback_url = '';
+				if(ctrlGlobalVar.getGlobalVariable('hostname'))
+					callback_url = ctrlGlobalVar.getGlobalVariable('hostname') + '/api/paymentCallback';
+				
 				var PaytmConfig = {
 					mid: "hmaLsf12637844253552", //config_params['mid'],
 					key: "WeF48eF#O@@Iw3F%",
 					website: "WEBSTAGING",
 					industry_type: "Retail",
 					channel: "WEB",
-					callback: "https://motoclique.in/api/paymentCallback"
+					callback: callback_url
 				}
 				
 				var order = {};
@@ -263,13 +268,18 @@ module.exports.buySubscriptionCallback = function(req,res){//Buy Subscription
 						params_result.forEach(function(val,indx,arr){
 							config_params[val.parameter] = val.value;
 						});
+						
+						var callback_url = '';
+						if(ctrlGlobalVar.getGlobalVariable('hostname'))
+							callback_url = ctrlGlobalVar.getGlobalVariable('hostname') + '/api/paymentCallback';
+						
 						var PaytmConfig = {
 							mid: "hmaLsf12637844253552", //config_params['mid'],
 							key: "WeF48eF#O@@Iw3F%",
 							website: "WEBSTAGING",
 							industry_type: "Retail",
 							channel: "WEB",
-							callback: "https://motoclique.in/api/paymentCallback"
+							callback: callback_url
 						};
 
 						// verify the checksum
@@ -316,13 +326,19 @@ module.exports.buySubscriptionTxnVerification = function(req,res){//Buy Subscrip
 			params_result.forEach(function(val,indx,arr){
 				config_params[val.parameter] = val.value;
 			});
+			
+			var callback_url = '';
+			if(ctrlGlobalVar.getGlobalVariable('hostname'))
+				callback_url = ctrlGlobalVar.getGlobalVariable('hostname') + '/api/paymentCallback';
+						
+			
 			var PaytmConfig = {
 							mid: "hmaLsf12637844253552", //config_params['mid'],
 							key: "WeF48eF#O@@Iw3F%",
 							website: "WEBSTAGING",
 							industry_type: "Retail",
 							channel: "WEB",
-							callback: "https://motoclique.in/api/paymentCallback"
+							callback: callback_url
 			};
 						
 			var post_data = '';
